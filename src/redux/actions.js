@@ -27,7 +27,6 @@ const fetchLaunches = (category = '') => dispatch => {
     .then(res => {
       if (res.status === 200) {
         dispatch(fetchLaunchSuccess(res.data));
-        console.log('res', res);
       }
     })
     .catch(error => {
