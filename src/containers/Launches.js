@@ -8,10 +8,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-// import TablePagination from '@material-ui/core/TablePagination';
 import Pagination from '@material-ui/lab/Pagination';
 import fetchLaunches from '../redux/actions';
 import LaunchRow from '../components/LaunchRow';
+import FilterLaunches from '../components/FilterLaunches';
 import './Launches.css';
 
 const StyledTableCell = withStyles(() => ({
@@ -42,10 +42,15 @@ function Launches({ loading, launches }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState('');
+
+  const handleChange = e => {
+    setFilter(e.target.value);
+  };
 
   useEffect(() => {
-    dispatch(fetchLaunches(''));
-  }, []);
+    dispatch(fetchLaunches(filter));
+  }, [filter]);
 
   const handleChangePage = (event, value) => {
     setPage(value);
@@ -55,11 +60,22 @@ function Launches({ loading, launches }) {
     return <div>Loading</div>;
   }
 
+  let data;
+
+  if (filter === 'failed') {
+    data = launches.filter(l => l.launch_success === false);
+  } else if (filter === 'success') {
+    data = launches.filter(l => l.launch_success === true);
+  } else {
+    data = launches;
+  }
+
   const endIdx = page * 12;
   const startIdx = endIdx - 12;
 
   return (
     <>
+      <FilterLaunches filter={filter} handleChange={handleChange} />
       <TableContainer className="table-container">
         <Table className={classes.root} aria-label="simple table">
           <TableHead className={classes.head}>
@@ -74,7 +90,7 @@ function Launches({ loading, launches }) {
             </TableRow>
           </TableHead>
           <TableBody className={classes.root}>
-            {launches.slice(startIdx, endIdx).map(launch => (
+            {data.slice(startIdx, endIdx).map(launch => (
               <LaunchRow
                 key={launch.launch_date_utc}
                 launch={launch}
@@ -89,7 +105,6 @@ function Launches({ loading, launches }) {
 }
 
 Launches.propTypes = {
-  // error: PropTypes.string,
   loading: PropTypes.bool,
   launches: PropTypes.instanceOf(Object),
 };
