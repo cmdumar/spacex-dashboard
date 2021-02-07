@@ -74,7 +74,12 @@ function Launches({ loading, launches }) {
             </TableRow>
           </TableHead>
           <TableBody className={classes.root}>
-            <LaunchRow launches={launches.slice(startIdx, endIdx)} />
+            {launches.slice(startIdx, endIdx).map(launch => (
+              <LaunchRow
+                key={launch.launch_date_utc}
+                launch={launch}
+              />
+            ))}
           </TableBody>
         </Table>
       </TableContainer>

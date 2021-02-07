@@ -36,34 +36,32 @@ const MyChipFailure = styled(Chip)({
   padding: '4px 12px',
 });
 
-function LaunchRow({ launches }) {
+function LaunchRow({ launch }) {
   const classes = useStyles();
 
   return (
-    launches.map(l => (
-      <TableRow key={l.launch_date_utc}>
-        <StyledTableCell className={classes.root} component="th" scope="row" align="left">
-          {l.flight_number}
-        </StyledTableCell>
-        <StyledTableCell className={classes.root} align="left">
-          {moment(l.launch_date_utc).format('DD MMMM YYYY, HH:mm')}
-        </StyledTableCell>
-        <StyledTableCell className={classes.root} align="left">{l.launch_site.site_name}</StyledTableCell>
-        <StyledTableCell className={classes.root} align="left">{l.mission_name}</StyledTableCell>
-        <StyledTableCell className={classes.root} align="left">
-          {l.rocket.second_stage.payloads[0].orbit}
-        </StyledTableCell>
-        <StyledTableCell className={classes.root} align="center">
-          {l.launch_success ? <MyChipSuccess label="Success" size="small" /> : <MyChipFailure label="Failure" size="small" />}
-        </StyledTableCell>
-        <StyledTableCell className={classes.root} align="left">{l.rocket.rocket_name}</StyledTableCell>
-      </TableRow>
-    ))
+    <TableRow key={launch.launch_date_utc}>
+      <StyledTableCell className={classes.root} component="th" scope="row" align="left">
+        {launch.flight_number}
+      </StyledTableCell>
+      <StyledTableCell className={classes.root} align="left">
+        {moment(launch.launch_date_utc).format('DD MMMM YYYY, HH:mm')}
+      </StyledTableCell>
+      <StyledTableCell className={classes.root} align="left">{launch.launch_site.site_name}</StyledTableCell>
+      <StyledTableCell className={classes.root} align="left">{launch.mission_name}</StyledTableCell>
+      <StyledTableCell className={classes.root} align="left">
+        {launch.rocket.second_stage.payloads[0].orbit}
+      </StyledTableCell>
+      <StyledTableCell className={classes.root} align="center">
+        {launch.launch_success ? <MyChipSuccess label="Success" size="small" /> : <MyChipFailure label="Failure" size="small" />}
+      </StyledTableCell>
+      <StyledTableCell className={classes.root} align="left">{launch.rocket.rocket_name}</StyledTableCell>
+    </TableRow>
   );
 }
 
 LaunchRow.propTypes = {
-  launches: PropTypes.instanceOf(Object).isRequired,
+  launch: PropTypes.instanceOf(Object).isRequired,
 };
 
 export default LaunchRow;
