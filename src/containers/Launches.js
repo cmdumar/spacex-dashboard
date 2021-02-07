@@ -1,6 +1,6 @@
 import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -8,7 +8,10 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+// import TablePagination from '@material-ui/core/TablePagination';
+import Pagination from '@material-ui/lab/Pagination';
 import fetchLaunches from '../redux/actions';
+import LaunchRow from '../components/LaunchRow';
 import './Launches.css';
 
 const StyledTableCell = withStyles(() => ({
@@ -18,6 +21,7 @@ const StyledTableCell = withStyles(() => ({
   body: {
     fontSize: 12,
     fontWeight: 500,
+    fontFamily: 'Inter, sans-serif',
   },
 }))(TableCell);
 
@@ -25,6 +29,7 @@ const useStyles = makeStyles({
   root: {
     fontFamily: 'Inter, sans-serif',
     fontWeight: 400,
+    color: '#1F2937',
   },
 
   head: {
@@ -36,50 +41,45 @@ const useStyles = makeStyles({
 function Launches({ loading, launches }) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    dispatch(fetchLaunches());
+    dispatch(fetchLaunches(''));
   }, []);
 
-  console.log('launches', launches);
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
 
   if (loading) {
     return <div>Loading</div>;
   }
 
+  const endIdx = page * 12;
+  const startIdx = endIdx - 12;
+
   return (
-    <TableContainer className="table-container">
-      <Table className={classes.root} aria-label="simple table">
-        <TableHead className={classes.head}>
-          <TableRow>
-            <StyledTableCell>No:</StyledTableCell>
-            <StyledTableCell>Launched (UTC)</StyledTableCell>
-            <StyledTableCell>Location</StyledTableCell>
-            <StyledTableCell>Mission</StyledTableCell>
-            <StyledTableCell>Orbit</StyledTableCell>
-            <StyledTableCell>Launch Status</StyledTableCell>
-            <StyledTableCell>Rocket</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {launches.map(l => (
-            <TableRow key={l.flight_number}>
-              <TableCell component="th" scope="row">
-                {l.flight_number}
-              </TableCell>
-              <TableCell>{l.launch_date_utc.toString()}</TableCell>
-              <TableCell>{l.launch_site.site_name}</TableCell>
-              <TableCell>{l.mission_name}</TableCell>
-              <TableCell>
-                {l.rocket.second_stage.payloads[0].orbit}
-              </TableCell>
-              <TableCell>{l.launch_success ? 'success' : 'failure'}</TableCell>
-              <TableCell>{l.rocket.rocket_name}</TableCell>
+    <>
+      <TableContainer className="table-container">
+        <Table className={classes.root} aria-label="simple table">
+          <TableHead className={classes.head}>
+            <TableRow>
+              <StyledTableCell align="left">No:</StyledTableCell>
+              <StyledTableCell align="left">Launched (UTC)</StyledTableCell>
+              <StyledTableCell align="left">Location</StyledTableCell>
+              <StyledTableCell align="left">Mission</StyledTableCell>
+              <StyledTableCell align="left">Orbit</StyledTableCell>
+              <StyledTableCell align="center">Launch Status</StyledTableCell>
+              <StyledTableCell align="left">Rocket</StyledTableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody className={classes.root}>
+            <LaunchRow launches={launches.slice(startIdx, endIdx)} />
+          </TableBody>
+        </Table>
+      </TableContainer>
+      <Pagination count={Math.ceil(launches.length / 12)} onChange={handleChangePage} page={page} shape="rounded" />
+    </>
   );
 }
 
