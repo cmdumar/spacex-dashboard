@@ -12,6 +12,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import fetchLaunches from '../redux/actions';
 import LaunchRow from '../components/LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
+import DateFilter from '../components/DatePicker';
 import './Launches.css';
 
 const StyledTableCell = withStyles(() => ({
@@ -75,6 +76,7 @@ function Launches({ loading, launches }) {
 
   return (
     <>
+      <DateFilter />
       <FilterLaunches filter={filter} handleChange={handleChange} />
       <TableContainer className="table-container">
         <Table className={classes.root} aria-label="simple table">
