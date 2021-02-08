@@ -26,9 +26,15 @@ code {
     monospace;
 }
 
+#root {
+  display: grid;
+  place-items: center;
+  height: 100%;
+}
+
 .container {
   display: grid;
   place-items: center;
-  width: 100%;
+  max-width: 952px;
   padding: 30px;
 }

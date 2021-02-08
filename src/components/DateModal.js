@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import DatePick from './DatePick';
+import calendar from '../assets/calendar.svg';
+import arrow from '../assets/arrow.svg';
 import './DateFilter.css';
 
 const useStyles = makeStyles(() => ({
@@ -21,6 +23,33 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+
+  dateFilter: {
+
+  },
+
+  btn: {
+    display: 'flex',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
+    border: 0,
+    ouline: 0,
+    padding: '10px 0',
+    cursor: 'pointer',
+    fontSize: '16px',
+    lineHeight: '16px',
+
+    '& p': {
+      marginLeft: '9.33px',
+      marginRight: '11px',
+      fontFamily: 'Helvetica, sans-serif',
+    },
+
+    '& img': {
+      width: '13.33px',
+      height: '13.33px',
+    },
   },
 }));
 
@@ -60,9 +89,11 @@ function DateModal({
   );
 
   return (
-    <div>
-      <button type="button" onClick={handleOpen}>
-        Open Modal
+    <div className={classes.dateFilter}>
+      <button type="button" className={classes.btn} onClick={handleOpen}>
+        <img src={calendar} alt="calendar icon" />
+        <p>Date Filter</p>
+        <img src={arrow} alt="down arrow icon" />
       </button>
       <Modal
         className={classes.modal}

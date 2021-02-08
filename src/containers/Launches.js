@@ -33,11 +33,28 @@ const useStyles = makeStyles({
     fontFamily: 'Inter, sans-serif',
     fontWeight: 400,
     color: '#1F2937',
+    minHeight: '676px',
+    position: 'relative',
+  },
+
+  loading: {
+    position: 'absolute',
+    display: 'grid',
+    placeItems: 'center',
+    width: '100%',
+    height: '100%',
   },
 
   head: {
     backgroundColor: '#F4F5F7',
     color: '#4B5563',
+  },
+
+  filterContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%',
+    marginBottom: '48px',
   },
 });
 
@@ -74,10 +91,6 @@ function Launches({ loading, launches }) {
     setPage(value);
   };
 
-  if (loading) {
-    return <div>Loading</div>;
-  }
-
   let data;
 
   if (filter === 'failed') {
@@ -94,13 +107,15 @@ function Launches({ loading, launches }) {
   return (
     <>
       <ModalBody open={open} handleClose={handleModalState} />
-      <DateModal
-        startDate={startDate}
-        endDate={endDate}
-        handleStartDate={handleStartDate}
-        handleEndDate={handleEndDate}
-      />
-      <FilterLaunches filter={filter} handleChange={handleChange} />
+      <div className={classes.filterContainer}>
+        <DateModal
+          startDate={startDate}
+          endDate={endDate}
+          handleStartDate={handleStartDate}
+          handleEndDate={handleEndDate}
+        />
+        <FilterLaunches filter={filter} handleChange={handleChange} />
+      </div>
       <TableContainer className="table-container">
         <Table className={classes.root} aria-label="simple table">
           <TableHead className={classes.head}>
@@ -114,18 +129,28 @@ function Launches({ loading, launches }) {
               <StyledTableCell align="left">Rocket</StyledTableCell>
             </TableRow>
           </TableHead>
-          <TableBody className={classes.root}>
-            {data.slice(startIdx, endIdx).map(launch => (
-              <LaunchRow
-                key={launch.launch_date_utc}
-                launch={launch}
-                handleModalState={handleModalState}
-              />
-            ))}
+          <TableBody className={`${classes.root}`}>
+            {!loading ? (
+              <div className={classes.loading}>
+                <p>Loading</p>
+              </div>
+            )
+              : data.slice(startIdx, endIdx).map(launch => (
+                <LaunchRow
+                  key={launch.launch_date_utc}
+                  launch={launch}
+                  handleModalState={handleModalState}
+                />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Pagination count={Math.ceil(launches.length / 12)} onChange={handleChangePage} page={page} shape="rounded" />
+      <Pagination
+        count={Math.ceil(launches.length / 12)}
+        onChange={handleChangePage}
+        page={page}
+        shape="rounded"
+      />
     </>
   );
 }
