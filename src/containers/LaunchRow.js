@@ -1,9 +1,11 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { withStyles, makeStyles, styled } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import Chip from '@material-ui/core/Chip';
+import setLaunch from '../redux/actions/launchActions';
 
 const StyledTableCell = withStyles(() => ({
   body: {
@@ -36,11 +38,15 @@ const MyChipFailure = styled(Chip)({
   padding: '4px 12px',
 });
 
-function LaunchRow({ launch }) {
+function LaunchRow({ launch, setLaunch }) {
   const classes = useStyles();
 
+  const handleClick = launch => {
+    setLaunch(launch);
+  };
+
   return (
-    <TableRow key={launch.launch_date_utc}>
+    <TableRow key={launch.launch_date_utc} onClick={() => handleClick(launch)}>
       <StyledTableCell className={classes.root} component="th" scope="row" align="left">
         {launch.flight_number}
       </StyledTableCell>
@@ -62,6 +68,7 @@ function LaunchRow({ launch }) {
 
 LaunchRow.propTypes = {
   launch: PropTypes.instanceOf(Object).isRequired,
+  setLaunch: PropTypes.func.isRequired,
 };
 
-export default LaunchRow;
+export default connect(null, { setLaunch })(LaunchRow);

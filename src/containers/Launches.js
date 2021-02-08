@@ -9,9 +9,10 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Pagination from '@material-ui/lab/Pagination';
-import fetchLaunches from '../redux/actions';
-import LaunchRow from '../components/LaunchRow';
+import fetchLaunches from '../redux/actions/launchesActions';
+import LaunchRow from './LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
+import setLaunch from '../redux/actions/launchActions';
 import DateFilter from '../components/DateFilter';
 import './Launches.css';
 
@@ -144,4 +145,4 @@ function mapStateToProps(store) {
   };
 }
 
-export default connect(mapStateToProps, null)(Launches);
+export default connect(mapStateToProps, { setLaunch })(Launches);

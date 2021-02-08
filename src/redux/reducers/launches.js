@@ -1,4 +1,4 @@
-import { FETCH_LAUNCH_BEGIN, FETCH_LAUNCH_SUCCESS, FETCH_LAUNCH_FAILURE } from '../actionTypes';
+import { FETCH_LAUNCH_BEGIN, FETCH_LAUNCH_SUCCESS, FETCH_LAUNCH_FAILURE } from '../actions/actionTypes';
 
 const initialState = {
   loading: false,

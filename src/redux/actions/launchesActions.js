@@ -1,5 +1,5 @@
 import { FETCH_LAUNCH_BEGIN, FETCH_LAUNCH_SUCCESS, FETCH_LAUNCH_FAILURE } from './actionTypes';
-import launchData from '../helpers/launchData';
+import launchData from '../../helpers/launchData';
 
 const fetchLaunchBegin = () => (
   {
