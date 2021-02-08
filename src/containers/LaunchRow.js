@@ -5,7 +5,8 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import setLaunch from '../redux/actions/launchActions';
-import { MyChipSuccess, MyChipFailure } from '../components/statusBtn';
+import MyChipSuccess from '../components/MyChipSuccess';
+import MyChipFailure from '../components/MyChipFailure';
 
 const StyledTableCell = withStyles(() => ({
   body: {
@@ -51,12 +52,9 @@ function LaunchRow({ launch, setLaunch, handleModalState }) {
       <StyledTableCell className={classes.root} align="center">
         {
           launch.launch_success ? (
-            <MyChipSuccess
-              label="Success"
-              size="small"
-            />
+            <MyChipSuccess />
           )
-            : <MyChipFailure label="Failure" size="small" />
+            : <MyChipFailure />
         }
       </StyledTableCell>
       <StyledTableCell className={classes.root} align="left">{launch.rocket.rocket_name}</StyledTableCell>

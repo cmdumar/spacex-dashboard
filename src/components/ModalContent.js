@@ -1,7 +1,8 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import { MyChipSuccess, MyChipFailure } from './statusBtn';
+import MyChipSuccess from './MyChipSuccess';
+import MyChipFailure from './MyChipFailure';
 import nasa from '../assets/nasa.svg';
 import wiki from '../assets/wiki.svg';
 import youtube from '../assets/youtube.svg';
@@ -114,10 +115,9 @@ const useStyles = makeStyles(() => ({
 
 function ModalContent({ launch }) {
   const classes = useStyles();
-  let body;
 
   if (launch.links) {
-    body = (
+    return (
       <div className={classes.paper}>
         <div className={classes.content}>
           <div className={classes.header}>
@@ -223,11 +223,8 @@ function ModalContent({ launch }) {
         </div>
       </div>
     );
-  } else {
-    body = <div>Found none</div>;
   }
-
-  return body;
+  return <div>Found none</div>;
 }
 
 ModalContent.propTypes = {

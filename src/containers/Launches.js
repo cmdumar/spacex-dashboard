@@ -2,6 +2,7 @@ import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
+import moment from 'moment';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -101,6 +102,11 @@ function Launches({ loading, launches }) {
     data = launches;
   }
 
+  if (startDate && endDate) {
+    data = data.filter(l => moment(l.launch_date_utc).isSameOrAfter(startDate)
+      && moment(l.launch_date_utc).isSameOrBefore(endDate));
+  }
+
   const endIdx = page * 12;
   const startIdx = endIdx - 12;
 
@@ -130,10 +136,12 @@ function Launches({ loading, launches }) {
             </TableRow>
           </TableHead>
           <TableBody className={`${classes.root}`}>
-            {!loading ? (
-              <div className={classes.loading}>
-                <p>Loading</p>
-              </div>
+            {loading ? (
+              <TableRow>
+                <TableCell className={classes.loading}>
+                  <p>Loading</p>
+                </TableCell>
+              </TableRow>
             )
               : data.slice(startIdx, endIdx).map(launch => (
                 <LaunchRow
@@ -142,11 +150,21 @@ function Launches({ loading, launches }) {
                   handleModalState={handleModalState}
                 />
               ))}
+
+            {!loading && data.length === 0 ? (
+              <TableRow>
+                <TableCell
+                  className={classes.loading}
+                >
+                  Found none
+                </TableCell>
+              </TableRow>
+            ) : null }
           </TableBody>
         </Table>
       </TableContainer>
       <Pagination
-        count={Math.ceil(launches.length / 12)}
+        count={Math.ceil(data.length / 12)}
         onChange={handleChangePage}
         page={page}
         shape="rounded"
