@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Pagination from '@material-ui/lab/Pagination';
+import Pagination from '@material-ui/core/Pagination';
 import fetchLaunches from '../redux/actions/launchesActions';
 import LaunchRow from './LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
