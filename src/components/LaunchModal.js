@@ -9,6 +9,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#fff',
     borderRadius: '6px',
     padding: '12px 12px 12px 4px',
+    boxShadow: '0px 1px 3px rgba(0, 0, 0, 0.1)',
+    maxWidth: '544px',
 
     '&:focus': {
       outline: '0',
@@ -20,6 +22,11 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  details: {
+    fontSize: '14px',
+    lineHeight: '24px',
+  },
 }));
 
 function LaunchModal({ open, handleClose }) {
@@ -28,9 +35,9 @@ function LaunchModal({ open, handleClose }) {
 
   const body = (
     <div className={classes.paper}>
-      <div>
-        {launch.flight_number}
-      </div>
+      <p className={classes.details}>
+        {launch.details}
+      </p>
     </div>
   );
 
