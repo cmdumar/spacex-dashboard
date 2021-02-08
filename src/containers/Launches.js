@@ -12,7 +12,7 @@ import Pagination from '@material-ui/lab/Pagination';
 import fetchLaunches from '../redux/actions';
 import LaunchRow from '../components/LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
-import DateFilter from '../components/DatePicker';
+import DateFilter from '../components/DateFilter';
 import './Launches.css';
 
 const StyledTableCell = withStyles(() => ({
@@ -44,6 +44,19 @@ function Launches({ loading, launches }) {
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('');
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+
+  const handleStartDate = value => {
+    setStartDate(value);
+  };
+
+  const handleEndDate = value => {
+    setEndDate(value);
+  };
+
+  console.log('Start Date', startDate);
+  console.log('End Date', endDate);
 
   const handleChange = e => {
     setFilter(e.target.value);
@@ -76,7 +89,12 @@ function Launches({ loading, launches }) {
 
   return (
     <>
-      <DateFilter />
+      <DateFilter
+        startDate={startDate}
+        endDate={endDate}
+        handleStartDate={handleStartDate}
+        handleEndDate={handleEndDate}
+      />
       <FilterLaunches filter={filter} handleChange={handleChange} />
       <TableContainer className="table-container">
         <Table className={classes.root} aria-label="simple table">

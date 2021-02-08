@@ -1,0 +1,23 @@
+.date-modal {
+  display: flex;
+  height: 100%;
+}
+
+.v-line {
+  width: 2px;
+  border: 1px solid #e5e5e5;
+  height: 100%;
+  margin-right: 7px;
+  margin-left: 15px;
+}
+
+.past-filters button {
+  display: block;
+  background-color: transparent;
+  padding: 7px 5px;
+  border: 0;
+}
+
+.date-pickers {
+  display: flex;
+}
