@@ -5,21 +5,6 @@ import Modal from '@material-ui/core/Modal';
 import DatePick from './DatePick';
 import './DateFilter.css';
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
-
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`,
-  };
-}
-
 const useStyles = makeStyles(() => ({
   paper: {
     position: 'absolute',
@@ -31,16 +16,20 @@ const useStyles = makeStyles(() => ({
       outline: '0',
     },
   },
+
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 }));
 
-function DateFilter({
+function DateModal({
   startDate, endDate, handleStartDate, handleEndDate,
 }) {
   const [open, setOpen] = useState(false);
 
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = useState(getModalStyle);
 
   const handleOpen = () => {
     setOpen(true);
@@ -51,7 +40,7 @@ function DateFilter({
   };
 
   const body = (
-    <div style={modalStyle} className={classes.paper}>
+    <div className={classes.paper}>
       <div className="date-modal">
         <div className="past-filters">
           <button type="button">Past Week</button>
@@ -76,6 +65,7 @@ function DateFilter({
         Open Modal
       </button>
       <Modal
+        className={classes.modal}
         open={open}
         onClose={handleClose}
         aria-labelledby="simple-modal-title"
@@ -87,16 +77,16 @@ function DateFilter({
   );
 }
 
-DateFilter.propTypes = {
+DateModal.propTypes = {
   startDate: PropTypes.instanceOf(Date),
   endDate: PropTypes.instanceOf(Date),
   handleStartDate: PropTypes.func.isRequired,
   handleEndDate: PropTypes.func.isRequired,
 };
 
-DateFilter.defaultProps = {
+DateModal.defaultProps = {
   startDate: null,
   endDate: null,
 };
 
-export default DateFilter;
+export default DateModal;

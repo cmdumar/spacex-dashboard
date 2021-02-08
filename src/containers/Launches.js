@@ -13,8 +13,9 @@ import fetchLaunches from '../redux/actions/launchesActions';
 import LaunchRow from './LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
 import setLaunch from '../redux/actions/launchActions';
-import DateFilter from '../components/DateFilter';
+import DateModal from '../components/DateModal';
 import './Launches.css';
+import ModalBody from '../components/LaunchModal';
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -47,6 +48,7 @@ function Launches({ loading, launches }) {
   const [filter, setFilter] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+  const [open, setOpen] = useState(false);
 
   const handleStartDate = value => {
     setStartDate(value);
@@ -56,11 +58,12 @@ function Launches({ loading, launches }) {
     setEndDate(value);
   };
 
-  console.log('Start Date', startDate);
-  console.log('End Date', endDate);
-
   const handleChange = e => {
     setFilter(e.target.value);
+  };
+
+  const handleModalState = () => {
+    setOpen(!open);
   };
 
   useEffect(() => {
@@ -90,7 +93,8 @@ function Launches({ loading, launches }) {
 
   return (
     <>
-      <DateFilter
+      <ModalBody open={open} handleClose={handleModalState} />
+      <DateModal
         startDate={startDate}
         endDate={endDate}
         handleStartDate={handleStartDate}
@@ -115,6 +119,7 @@ function Launches({ loading, launches }) {
               <LaunchRow
                 key={launch.launch_date_utc}
                 launch={launch}
+                handleModalState={handleModalState}
               />
             ))}
           </TableBody>

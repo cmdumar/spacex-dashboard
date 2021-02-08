@@ -38,11 +38,12 @@ const MyChipFailure = styled(Chip)({
   padding: '4px 12px',
 });
 
-function LaunchRow({ launch, setLaunch }) {
+function LaunchRow({ launch, setLaunch, handleModalState }) {
   const classes = useStyles();
 
   const handleClick = launch => {
     setLaunch(launch);
+    handleModalState();
   };
 
   return (
@@ -69,6 +70,7 @@ function LaunchRow({ launch, setLaunch }) {
 LaunchRow.propTypes = {
   launch: PropTypes.instanceOf(Object).isRequired,
   setLaunch: PropTypes.func.isRequired,
+  handleModalState: PropTypes.func.isRequired,
 };
 
 export default connect(null, { setLaunch })(LaunchRow);
