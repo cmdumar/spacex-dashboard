@@ -166,6 +166,7 @@ function Launches({
         page={page}
         shape="rounded"
         variant="outlined"
+        siblingCount={0}
         className={classes.pagination}
       />
     </>
