@@ -38,6 +38,14 @@ const useStyles = makeStyles({
     position: 'relative',
   },
 
+  table_container: {
+    minWidth: '952px',
+    maxWidth: '952px',
+    border: '1px solid #e4e4e7',
+    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
+    borderRadius: '6px',
+  },
+
   loading: {
     position: 'absolute',
     display: 'grid',
@@ -56,6 +64,50 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     width: '100%',
     marginBottom: '48px',
+  },
+
+  pagination: {
+    marginTop: '20px',
+    width: '100%',
+
+    '& ul': {
+      display: 'flex',
+      justifyContent: 'flex-end',
+
+      '& li': {
+        border: '1px solid #e4e4e7',
+        height: '40px',
+        width: '40px',
+
+        '&:first-child': {
+          borderTopLeftRadius: '4px',
+          borderBottomLeftRadius: '4px',
+        },
+
+        '&:last-child': {
+          borderTopRightRadius: '4px',
+          borderBottomRightRadius: '4px',
+        },
+
+        '& button': {
+          color: '#4b5563',
+          width: '40px',
+          height: '40px',
+          textAlign: 'center',
+          fontSize: '12px',
+          lineHeight: '16px',
+        },
+
+        '& div': {
+          height: '40px',
+          width: '100%',
+          display: 'flex',
+          alignContent: 'center',
+          paddingTop: '10px',
+          paddingLeft: '9px',
+        },
+      },
+    },
   },
 });
 
@@ -122,7 +174,7 @@ function Launches({ loading, launches }) {
         />
         <FilterLaunches filter={filter} handleChange={handleChange} />
       </div>
-      <TableContainer className="table-container">
+      <TableContainer className={classes.table_container}>
         <Table className={classes.root} aria-label="simple table">
           <TableHead className={classes.head}>
             <TableRow>
@@ -156,7 +208,7 @@ function Launches({ loading, launches }) {
                 <TableCell
                   className={classes.loading}
                 >
-                  Found none
+                  No results found for the specified filter
                 </TableCell>
               </TableRow>
             ) : null }
@@ -168,6 +220,8 @@ function Launches({ loading, launches }) {
         onChange={handleChangePage}
         page={page}
         shape="rounded"
+        variant="outlined"
+        className={classes.pagination}
       />
     </>
   );
