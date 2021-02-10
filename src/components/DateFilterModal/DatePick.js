@@ -11,7 +11,7 @@ function DatePick({ value, handleChange, handleClose }) {
 
   return (
     <DatePicker
-      selected={new Date(value)}
+      selected={value}
       onChange={date => handleSelect(date)}
       inline
       showMonthDropdown
@@ -22,7 +22,7 @@ function DatePick({ value, handleChange, handleClose }) {
 }
 
 DatePick.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.instanceOf(Date),
   handleChange: PropTypes.func.isRequired,
   handleClose: PropTypes.func,
 };

@@ -1,11 +1,12 @@
 import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { withStyles, makeStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
+import Loader from 'react-loader-spinner';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
@@ -17,6 +18,8 @@ import setLaunch from '../redux/actions/launchActions';
 import DateModal from '../components/DateFilterModal/DateModal';
 import './Launches.css';
 import LaunchModal from '../components/LaunchModal/LaunchModal';
+import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
+import useStyles from './LaunchesStyles';
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -28,88 +31,6 @@ const StyledTableCell = withStyles(() => ({
     fontFamily: 'Inter, sans-serif',
   },
 }))(TableCell);
-
-const useStyles = makeStyles({
-  root: {
-    fontFamily: 'Inter, sans-serif',
-    fontWeight: 400,
-    color: '#1F2937',
-    minHeight: '676px',
-    position: 'relative',
-  },
-
-  table_container: {
-    minWidth: '952px',
-    maxWidth: '952px',
-    border: '1px solid #e4e4e7',
-    boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)',
-    borderRadius: '6px',
-  },
-
-  loading: {
-    position: 'absolute',
-    display: 'grid',
-    placeItems: 'center',
-    width: '100%',
-    height: '100%',
-  },
-
-  head: {
-    backgroundColor: '#F4F5F7',
-    color: '#4B5563',
-  },
-
-  filterContainer: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    width: '100%',
-    marginBottom: '48px',
-  },
-
-  pagination: {
-    marginTop: '20px',
-    width: '100%',
-
-    '& ul': {
-      display: 'flex',
-      justifyContent: 'flex-end',
-
-      '& li': {
-        border: '1px solid #e4e4e7',
-        height: '40px',
-        width: '40px',
-
-        '&:first-child': {
-          borderTopLeftRadius: '4px',
-          borderBottomLeftRadius: '4px',
-        },
-
-        '&:last-child': {
-          borderTopRightRadius: '4px',
-          borderBottomRightRadius: '4px',
-        },
-
-        '& button': {
-          color: '#4b5563',
-          width: '40px',
-          height: '40px',
-          textAlign: 'center',
-          fontSize: '12px',
-          lineHeight: '16px',
-        },
-
-        '& div': {
-          height: '40px',
-          width: '100%',
-          display: 'flex',
-          alignContent: 'center',
-          paddingTop: '10px',
-          paddingLeft: '9px',
-        },
-      },
-    },
-  },
-});
 
 function Launches({ loading, launches }) {
   const classes = useStyles();
@@ -190,8 +111,13 @@ function Launches({ loading, launches }) {
           <TableBody className={`${classes.root}`}>
             {loading ? (
               <TableRow>
-                <TableCell className={classes.loading}>
-                  <p>Loading</p>
+                <TableCell className={`${classes.loading} ${classes.spinner}`}>
+                  <Loader
+                    type="Oval"
+                    color="#e4e4e7"
+                    height={100}
+                    width={100}
+                  />
                 </TableCell>
               </TableRow>
             )
