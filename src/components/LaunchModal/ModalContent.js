@@ -1,12 +1,11 @@
 import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
-import MyChipSuccess from '../shared/MyChipSuccess';
-import MyChipFailure from '../shared/MyChipFailure';
 import nasa from '../../assets/nasa.svg';
 import wiki from '../../assets/wiki.svg';
 import youtube from '../../assets/youtube.svg';
 import useStyles from './ModalStyles';
+import launchStatus from '../../helpers/launchStatus';
 
 const ModalContent = React.forwardRef((props, ref) => {
   const { launch } = props;
@@ -52,15 +51,7 @@ const ModalContent = React.forwardRef((props, ref) => {
               </div>
             </div>
             <div className={classes.rocketStatus}>
-              {
-                launch.launch_success ? (
-                  <MyChipSuccess
-                    label="Success"
-                    size="small"
-                  />
-                )
-                  : <MyChipFailure label="Failure" size="small" />
-              }
+              {launchStatus(launch.launch_success)}
             </div>
           </div>
           <p className={classes.details}>

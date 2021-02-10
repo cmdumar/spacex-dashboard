@@ -1,5 +1,6 @@
 import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -30,14 +31,19 @@ const StyledTableCell = withStyles(() => ({
   },
 }))(TableCell);
 
-function Launches({ error, loading, launches }) {
+function Launches({
+  error, loading, launches, ...props
+}) {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { match, location, history } = props;
   const [page, setPage] = useState(1);
   const [filter, setFilter] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [open, setOpen] = useState(false);
+
+  console.log('History', match, location, history);
 
   const handleStartDate = value => {
     setStartDate(value);
@@ -172,6 +178,9 @@ Launches.propTypes = {
   error: PropTypes.string,
   loading: PropTypes.bool,
   launches: PropTypes.instanceOf(Object),
+  match: PropTypes.instanceOf(Object).isRequired,
+  location: PropTypes.instanceOf(Object).isRequired,
+  history: PropTypes.instanceOf(Object).isRequired,
 };
 
 Launches.defaultProps = {
@@ -189,4 +198,4 @@ function mapStateToProps(store) {
   };
 }
 
-export default connect(mapStateToProps, { setLaunch })(Launches);
+export default connect(mapStateToProps, { setLaunch })(withRouter(Launches));

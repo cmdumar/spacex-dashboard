@@ -5,8 +5,7 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import setLaunch from '../redux/actions/launchActions';
-import MyChipSuccess from '../components/shared/MyChipSuccess';
-import MyChipFailure from '../components/shared/MyChipFailure';
+import launchStatus from '../helpers/launchStatus';
 
 const StyledTableCell = withStyles(() => ({
   body: {
@@ -50,12 +49,7 @@ function LaunchRow({ launch, setLaunch, handleModalState }) {
         {launch.rocket.second_stage.payloads[0].orbit}
       </StyledTableCell>
       <StyledTableCell className={classes.root} align="center">
-        {
-          launch.launch_success ? (
-            <MyChipSuccess />
-          )
-            : <MyChipFailure />
-        }
+        {launchStatus(launch.launch_success)}
       </StyledTableCell>
       <StyledTableCell className={classes.root} align="left">{launch.rocket.rocket_name}</StyledTableCell>
     </TableRow>

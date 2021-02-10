@@ -1,10 +1,10 @@
 import API from '../api';
 
-const launchData = async (param = '') => {
+const launchData = async (params = '') => {
   try {
     let launches;
-    if (param === 'upcoming' || param === 'past') {
-      launches = await API.get(`/${param}`);
+    if (params === 'upcoming' || params === 'past') {
+      launches = await API.get(`/${params}`);
     } else {
       launches = await API.get('/');
     }
