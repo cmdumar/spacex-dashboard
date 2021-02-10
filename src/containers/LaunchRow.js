@@ -20,6 +20,7 @@ const useStyles = makeStyles({
     fontFamily: 'Inter, sans-serif',
     fontWeight: 400,
     color: '#1F2937',
+    borderBottomColor: 'transparent',
   },
 });
 
@@ -32,7 +33,11 @@ function LaunchRow({ launch, setLaunch, handleModalState }) {
   };
 
   return (
-    <TableRow key={launch.launch_date_utc} onClick={() => handleClick(launch)}>
+    <TableRow
+      key={launch.launch_date_utc}
+      className={classes}
+      onClick={() => handleClick(launch)}
+    >
       <StyledTableCell className={classes.root} component="th" scope="row" align="left">
         {launch.flight_number}
       </StyledTableCell>

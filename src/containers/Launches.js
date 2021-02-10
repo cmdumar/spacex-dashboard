@@ -22,12 +22,10 @@ import useStyles from './LaunchesStyles';
 
 const StyledTableCell = withStyles(() => ({
   head: {
-    color: '#4B5563',
-  },
-  body: {
+    color: '#4b5563',
+    fontFamily: 'Inter, sans-serif',
     fontSize: 12,
     fontWeight: 500,
-    fontFamily: 'Inter, sans-serif',
   },
 }))(TableCell);
 

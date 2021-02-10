@@ -2,16 +2,18 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
   status: {
-    padding: '4px 12px',
+    padding: '4px 8px',
     fontFamily: 'Inter, sans-serif',
     fontWeight: 500,
-    fontSize: '12px',
+    fontSize: '11px',
     lineHeight: '13px',
+    height: '21px',
+    textTransform: 'capitalize',
   },
 
   success: {
-    backgroundColor: '#deF7ec',
-    color: '#03543F',
+    backgroundColor: '#def7ec',
+    color: '#03543f',
   },
 
   upcoming: {
@@ -21,7 +23,7 @@ const useStyles = makeStyles({
 
   failed: {
     backgroundColor: '#fde2e1',
-    color: '#981b1c',
+    color: '981b1c',
   },
 });
 

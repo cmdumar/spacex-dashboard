@@ -4,7 +4,7 @@ const useStyles = makeStyles({
   root: {
     fontFamily: 'Inter, sans-serif',
     fontWeight: 400,
-    color: '#1F2937',
+    color: '#1f2937',
     minHeight: '676px',
     position: 'relative',
   },
@@ -31,7 +31,7 @@ const useStyles = makeStyles({
   },
 
   head: {
-    backgroundColor: '#F4F5F7',
+    backgroundColor: '#f4f5f7',
     color: '#4B5563',
   },
 
@@ -52,17 +52,17 @@ const useStyles = makeStyles({
 
       '& li': {
         border: '1px solid #e4e4e7',
+        borderRightWidth: '0.20px',
+        borderLeftWidth: '0.20px',
         height: '40px',
         width: '40px',
 
         '&:first-child': {
-          borderTopLeftRadius: '4px',
-          borderBottomLeftRadius: '4px',
+          borderRadius: '6px 0px 0px 6px',
         },
 
         '&:last-child': {
-          borderTopRightRadius: '4px',
-          borderBottomRightRadius: '4px',
+          borderRadius: '0px 6px 6px 0px',
         },
 
         '& button': {
@@ -71,6 +71,8 @@ const useStyles = makeStyles({
           height: '40px',
           textAlign: 'center',
           fontSize: '12px',
+          fontFamily: 'Inter, sans-serif',
+          fontWeight: '500',
           lineHeight: '16px',
         },
 

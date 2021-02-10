@@ -35,6 +35,6 @@ code {
 .container {
   display: grid;
   place-items: center;
-  max-width: 952px;
-  padding: 30px;
+  padding-top: 48px;
+  padding-bottom: 104px;
 }

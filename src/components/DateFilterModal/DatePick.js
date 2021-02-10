@@ -16,7 +16,6 @@ function DatePick({ value, handleChange, handleClose }) {
       inline
       showMonthDropdown
       showYearDropdown
-      fixedHeight
     />
   );
 }

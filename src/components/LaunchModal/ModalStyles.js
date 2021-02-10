@@ -87,7 +87,7 @@ const useStyles = makeStyles(() => ({
 
   table: {
     display: 'flex',
-    borderBottom: '2px solid #e4e4e7',
+    borderBottom: '1px solid #e4e4e7',
     padding: '16px 0',
 
     '& p': {

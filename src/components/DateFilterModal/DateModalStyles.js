@@ -6,6 +6,8 @@ const useStyles = makeStyles(() => ({
     backgroundColor: '#fff',
     borderRadius: '6px',
     padding: '12px 12px 12px 4px',
+    width: '618px',
+    height: '283px',
 
     '&:focus': {
       outline: '0',
@@ -23,6 +25,7 @@ const useStyles = makeStyles(() => ({
     alignItems: 'center',
     backgroundColor: 'transparent',
     border: 0,
+    color: '#4b5563',
     outline: 'none',
     padding: '10px 0',
     cursor: 'pointer',
@@ -36,7 +39,7 @@ const useStyles = makeStyles(() => ({
     '& p': {
       marginLeft: '9.33px',
       marginRight: '11px',
-      fontFamily: 'Helvetica, sans-serif',
+      fontFamily: 'Inter, sans-serif',
     },
 
     '& img': {
