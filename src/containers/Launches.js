@@ -16,9 +16,7 @@ import LaunchRow from './LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
 import setLaunch from '../redux/actions/launchActions';
 import DateModal from '../components/DateFilterModal/DateModal';
-import './Launches.css';
 import LaunchModal from '../components/LaunchModal/LaunchModal';
-import 'react-loader-spinner/dist/loader/css/react-spinner-loader.css';
 import useStyles from './LaunchesStyles';
 
 const StyledTableCell = withStyles(() => ({
@@ -32,7 +30,7 @@ const StyledTableCell = withStyles(() => ({
   },
 }))(TableCell);
 
-function Launches({ loading, launches }) {
+function Launches({ error, loading, launches }) {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [page, setPage] = useState(1);
@@ -83,6 +81,51 @@ function Launches({ loading, launches }) {
   const endIdx = page * 12;
   const startIdx = endIdx - 12;
 
+  let row;
+
+  if (loading) {
+    row = (
+      <TableRow>
+        <TableCell className={`${classes.loading} ${classes.spinner}`}>
+          <Loader
+            type="Oval"
+            color="#e4e4e7"
+            height={100}
+            width={100}
+          />
+        </TableCell>
+      </TableRow>
+    );
+  } else if (!loading && error.length !== 0) {
+    row = (
+      <TableRow>
+        <TableCell
+          className={classes.loading}
+        >
+          Unable to fetch launch data!
+        </TableCell>
+      </TableRow>
+    );
+  } else if (!loading && data.length === 0) {
+    row = (
+      <TableRow>
+        <TableCell
+          className={classes.loading}
+        >
+          No results found for the specified filter
+        </TableCell>
+      </TableRow>
+    );
+  } else if (!loading && data.length !== 0) {
+    row = data.slice(startIdx, endIdx).map(launch => (
+      <LaunchRow
+        key={launch.flight_number + launch.launch_date_utc}
+        launch={launch}
+        handleModalState={handleModalState}
+      />
+    ));
+  }
+
   return (
     <>
       <LaunchModal open={open} handleClose={handleModalState} />
@@ -109,35 +152,7 @@ function Launches({ loading, launches }) {
             </TableRow>
           </TableHead>
           <TableBody className={`${classes.root}`}>
-            {loading ? (
-              <TableRow>
-                <TableCell className={`${classes.loading} ${classes.spinner}`}>
-                  <Loader
-                    type="Oval"
-                    color="#e4e4e7"
-                    height={100}
-                    width={100}
-                  />
-                </TableCell>
-              </TableRow>
-            )
-              : data.slice(startIdx, endIdx).map(launch => (
-                <LaunchRow
-                  key={launch.flight_number + launch.launch_date_utc}
-                  launch={launch}
-                  handleModalState={handleModalState}
-                />
-              ))}
-
-            {!loading && data.length === 0 ? (
-              <TableRow>
-                <TableCell
-                  className={classes.loading}
-                >
-                  No results found for the specified filter
-                </TableCell>
-              </TableRow>
-            ) : null }
+            {row}
           </TableBody>
         </Table>
       </TableContainer>
@@ -154,12 +169,13 @@ function Launches({ loading, launches }) {
 }
 
 Launches.propTypes = {
+  error: PropTypes.string,
   loading: PropTypes.bool,
   launches: PropTypes.instanceOf(Object),
 };
 
 Launches.defaultProps = {
-  // error: '',
+  error: '',
   loading: false,
   launches: [],
 };

@@ -1,3 +1,4 @@
+import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +13,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function LaunchModal({ open, handleClose }) {
+const LaunchModal = ({ handleClose, open }) => {
   const classes = useStyles();
   const launch = useSelector(state => state.launch);
 
@@ -27,7 +28,7 @@ function LaunchModal({ open, handleClose }) {
       <ModalContent launch={launch} />
     </Modal>
   );
-}
+};
 
 LaunchModal.propTypes = {
   handleClose: PropTypes.func.isRequired,
