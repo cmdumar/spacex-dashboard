@@ -1,11 +1,11 @@
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
-import MyChipSuccess from './MyChipSuccess';
-import MyChipFailure from './MyChipFailure';
-import nasa from '../assets/nasa.svg';
-import wiki from '../assets/wiki.svg';
-import youtube from '../assets/youtube.svg';
+import MyChipSuccess from '../shared/MyChipSuccess';
+import MyChipFailure from '../shared/MyChipFailure';
+import nasa from '../../assets/nasa.svg';
+import wiki from '../../assets/wiki.svg';
+import youtube from '../../assets/youtube.svg';
 
 const useStyles = makeStyles(() => ({
   paper: {

@@ -14,9 +14,9 @@ import fetchLaunches from '../redux/actions/launchesActions';
 import LaunchRow from './LaunchRow';
 import FilterLaunches from '../components/FilterLaunches';
 import setLaunch from '../redux/actions/launchActions';
-import DateModal from '../components/DateModal';
+import DateModal from '../components/DateFilterModal/DateModal';
 import './Launches.css';
-import ModalBody from '../components/LaunchModal';
+import LaunchModal from '../components/LaunchModal/LaunchModal';
 
 const StyledTableCell = withStyles(() => ({
   head: {
@@ -112,7 +112,7 @@ function Launches({ loading, launches }) {
 
   return (
     <>
-      <ModalBody open={open} handleClose={handleModalState} />
+      <LaunchModal open={open} handleClose={handleModalState} />
       <div className={classes.filterContainer}>
         <DateModal
           startDate={startDate}
@@ -145,7 +145,7 @@ function Launches({ loading, launches }) {
             )
               : data.slice(startIdx, endIdx).map(launch => (
                 <LaunchRow
-                  key={launch.launch_date_utc}
+                  key={launch.flight_number + launch.launch_date_utc}
                   launch={launch}
                   handleModalState={handleModalState}
                 />

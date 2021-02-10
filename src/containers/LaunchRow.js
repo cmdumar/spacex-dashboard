@@ -5,8 +5,8 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import setLaunch from '../redux/actions/launchActions';
-import MyChipSuccess from '../components/MyChipSuccess';
-import MyChipFailure from '../components/MyChipFailure';
+import MyChipSuccess from '../components/shared/MyChipSuccess';
+import MyChipFailure from '../components/shared/MyChipFailure';
 
 const StyledTableCell = withStyles(() => ({
   body: {

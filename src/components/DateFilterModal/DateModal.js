@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import DatePick from './DatePick';
-import calendar from '../assets/calendar.svg';
-import arrow from '../assets/arrow.svg';
-import './DateFilter.css';
+import calendar from '../../assets/calendar.svg';
+import arrow from '../../assets/arrow.svg';
+import './DateModal.css';
 
 const useStyles = makeStyles(() => ({
   paper: {
@@ -25,20 +26,20 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
   },
 
-  dateFilter: {
-
-  },
-
   btn: {
     display: 'flex',
     alignItems: 'center',
     backgroundColor: 'transparent',
     border: 0,
-    ouline: 0,
+    outline: 'none',
     padding: '10px 0',
     cursor: 'pointer',
     fontSize: '16px',
     lineHeight: '16px',
+
+    '&:focus': {
+      outline: 'none',
+    },
 
     '& p': {
       marginLeft: '9.33px',
@@ -68,21 +69,76 @@ function DateModal({
     setOpen(false);
   };
 
+  const handleBtn = e => {
+    const v = e.target.value.split(',');
+    handleStartDate(v[0]);
+    handleEndDate(v[1]);
+    handleClose();
+  };
+
+  const clearDates = () => {
+    handleStartDate(null);
+    handleEndDate(null);
+    handleClose();
+  };
+
   const body = (
     <div className={classes.paper}>
       <div className="date-modal">
         <div className="past-filters">
-          <button type="button">Past Week</button>
-          <button type="button">Past Month</button>
-          <button type="button">Past 3 Months</button>
-          <button type="button">Past 6 Months</button>
-          <button type="button">Past Year</button>
-          <button type="button">Past 2 Years</button>
+          <button
+            type="button"
+            onClick={handleBtn}
+            value={[moment.parseZone().subtract(7, 'd').utc().format(), moment.parseZone().utc().format()]}
+          >
+            Past week
+          </button>
+          <button
+            type="button"
+            onClick={handleBtn}
+            value={[moment.parseZone().subtract(1, 'months').utc().format(), moment.parseZone().utc().format()]}
+          >
+            Past month
+          </button>
+          <button
+            type="button"
+            onClick={handleBtn}
+            value={[moment.parseZone().subtract(3, 'months').utc().format(), moment.parseZone().utc().format()]}
+          >
+            Past 3 months
+          </button>
+          <button
+            type="button"
+            onClick={handleBtn}
+            value={[moment.parseZone().subtract(6, 'months').utc().format(), moment.parseZone().utc().format()]}
+          >
+            Past 6 months
+          </button>
+          <button
+            type="button"
+            onClick={handleBtn}
+            value={[moment.parseZone().subtract(1, 'years').utc().format(), moment.parseZone().utc().format()]}
+          >
+            Past year
+          </button>
+          <button
+            type="button"
+            onClick={handleBtn}
+            value={[moment.parseZone().subtract(2, 'years').utc().format(), moment.parseZone().utc().format()]}
+          >
+            Past 2 years
+          </button>
+          <button
+            type="button"
+            onClick={clearDates}
+          >
+            Clear dates
+          </button>
         </div>
         <div className="v-line" />
         <div className="date-pickers">
           <DatePick value={startDate} handleChange={handleStartDate} />
-          <DatePick value={endDate} handleChange={handleEndDate} />
+          <DatePick value={endDate} handleChange={handleEndDate} handleClose={handleClose} />
         </div>
       </div>
     </div>
@@ -109,8 +165,8 @@ function DateModal({
 }
 
 DateModal.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
   handleStartDate: PropTypes.func.isRequired,
   handleEndDate: PropTypes.func.isRequired,
 };
