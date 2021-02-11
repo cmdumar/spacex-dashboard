@@ -34,7 +34,6 @@ function Launches({
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  // eslint-disable-next-line react/prop-types
   const { history } = props;
   const { filter } = useParams();
   const [page, setPage] = useState(1);
@@ -42,7 +41,9 @@ function Launches({
   const [endDate, setEndDate] = useState(null);
   const [open, setOpen] = useState(false);
 
-  console.log('History', filter);
+  useEffect(() => {
+    dispatch(fetchLaunches(filter));
+  }, [filter]);
 
   const handleStartDate = value => {
     setStartDate(value);
@@ -55,10 +56,6 @@ function Launches({
   const handleModalState = () => {
     setOpen(!open);
   };
-
-  useEffect(() => {
-    dispatch(fetchLaunches(filter));
-  }, [filter]);
 
   const handleChangePage = (event, value) => {
     setPage(value);

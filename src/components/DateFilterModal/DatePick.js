@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+// import moment from 'moment';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './DatePick.css';
@@ -9,9 +10,11 @@ function DatePick({ value, handleChange, handleClose }) {
     handleClose();
   };
 
+  const v = value !== null ? Date.parse(value) : null;
+
   return (
     <DatePicker
-      selected={value}
+      selected={v}
       onChange={date => handleSelect(date)}
       inline
       showMonthDropdown

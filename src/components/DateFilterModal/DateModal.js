@@ -63,8 +63,8 @@ function DateModal({
 }
 
 DateModal.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
   handleStartDate: PropTypes.func.isRequired,
   handleEndDate: PropTypes.func.isRequired,
 };

@@ -74,8 +74,8 @@ const ModalContent = React.forwardRef((props, ref) => {
 });
 
 ModalContent.propTypes = {
-  startDate: PropTypes.instanceOf(Date),
-  endDate: PropTypes.instanceOf(Date),
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
   handleStartDate: PropTypes.func.isRequired,
   handleEndDate: PropTypes.func.isRequired,
   handleClose: PropTypes.func.isRequired,
