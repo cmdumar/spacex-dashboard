@@ -20,26 +20,34 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function FilterLaunches({ filter, handleChange }) {
+function FilterLaunches({ filter, history }) {
   const classes = useStyles();
+
+  const handleChange = e => {
+    history.push(`/${e.target.value}`);
+  };
 
   return (
     <div className={classes.container}>
       <img src={filterIcon} alt="Filter icon" />
       <select value={filter} onChange={handleChange}>
-        <option value="all">All Launches</option>
+        <option value="">All Launches</option>
         <option value="upcoming">Upcoming Launches</option>
         <option value="past">Past Launches</option>
         <option value="failed">Failed Launches</option>
-        <option value="success">Successful Launches</option>
+        <option value="successful">Successful Launches</option>
       </select>
     </div>
   );
 }
 
 FilterLaunches.propTypes = {
-  filter: PropTypes.string.isRequired,
-  handleChange: PropTypes.func.isRequired,
+  filter: PropTypes.string,
+  history: PropTypes.instanceOf(Object).isRequired,
+};
+
+FilterLaunches.defaultProps = {
+  filter: undefined,
 };
 
 export default FilterLaunches;

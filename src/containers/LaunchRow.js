@@ -35,7 +35,6 @@ function LaunchRow({ launch, setLaunch, handleModalState }) {
   return (
     <TableRow
       key={launch.launch_date_utc}
-      className={classes}
       onClick={() => handleClick(launch)}
     >
       <StyledTableCell className={classes.root} component="th" scope="row" align="left">

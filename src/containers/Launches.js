@@ -1,6 +1,6 @@
 import { connect, useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
+import { withRouter, useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import moment from 'moment';
@@ -34,14 +34,15 @@ function Launches({
 }) {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { match, location, history } = props;
+  // eslint-disable-next-line react/prop-types
+  const { history } = props;
+  const { filter } = useParams();
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState('');
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
   const [open, setOpen] = useState(false);
 
-  console.log('History', match, location, history);
+  console.log('History', filter);
 
   const handleStartDate = value => {
     setStartDate(value);
@@ -49,10 +50,6 @@ function Launches({
 
   const handleEndDate = value => {
     setEndDate(value);
-  };
-
-  const handleChange = e => {
-    setFilter(e.target.value);
   };
 
   const handleModalState = () => {
@@ -71,7 +68,7 @@ function Launches({
 
   if (filter === 'failed') {
     data = launches.filter(l => l.launch_success === false);
-  } else if (filter === 'success') {
+  } else if (filter === 'successful') {
     data = launches.filter(l => l.launch_success === true);
   } else {
     data = launches;
@@ -140,7 +137,7 @@ function Launches({
           handleStartDate={handleStartDate}
           handleEndDate={handleEndDate}
         />
-        <FilterLaunches filter={filter} handleChange={handleChange} />
+        <FilterLaunches filter={filter} history={history} />
       </div>
       <TableContainer className={classes.table_container}>
         <Table className={classes.root} aria-label="simple table">
@@ -197,4 +194,4 @@ function mapStateToProps(store) {
   };
 }
 
-export default connect(mapStateToProps, { setLaunch })(withRouter(Launches));
+export default withRouter(connect(mapStateToProps, { setLaunch })(Launches));
