@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     borderRadius: '6px',
     padding: '12px 12px 12px 4px',
     width: '618px',
-    height: '283px',
+    height: '300px',
 
     '&:focus': {
       outline: '0',
