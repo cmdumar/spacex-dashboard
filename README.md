@@ -14,7 +14,7 @@
 
 ## Live Demo
 
-[Live Demo Link](https://spacex-dashboard-mdumar28.netlify.app/)
+[Live Demo Link](https://spacex-dashboard-umar28.herokuapp.com/)
 
 ## Getting Started
 
